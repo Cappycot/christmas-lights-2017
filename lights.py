@@ -21,3 +21,13 @@ except ImportError:
     pins = None
 
 songs = {}
+
+
+class Song:
+    def __init__(self, m_compiled, m_name, m_lights, m_maps, m_music, m_title):
+        self.compiled = m_compiled  # Bool, true if compiled
+        self.name = m_name  # Name of the song
+        self.lights = m_lights  # Name of the compiled lightmap file
+        self.maps = m_maps  # List of the uncompiled lightmap filenames
+        self.music = m_music  # Name of the audio file
+        self.title = m_name if m_title is None else m_title  # Custom title
