@@ -10,9 +10,9 @@ Lights now have four (4) different event types:
 3 - The light turns on.
 
 This year's light groupings are:
-1, 2, 3, 4: The vertical lights
-5, 6, 7, 8: The horizontal lights, from bottom to top
-9, 10, 11, 12: The white surrounding lights
+1, 2, 3, 4: The vertical lights, somehow from right to left.
+5, 6, 7, 8: The horizontal lights, from bottom to top.
+9, 10, 11, 12: The white surrounding lights, from left to right.
 13: The star.
 """
 
@@ -138,6 +138,13 @@ def binary_search(array, query, key=lambda a: a):
         return array[mid]
 
 
+def get_song(name):
+    for song in songs:
+        if song.name.lower().startswith(name):
+            return song
+    return None
+
+
 def compile_song(song: Song):
     try:
         if song.lights in song.maps or song.lights == song.name:
@@ -254,6 +261,8 @@ def compile_song(song: Song):
                     elif cutoffs[channel][0] - time_margin <= cur:
                         channels[channel] = 1
         out.write("w" + str(cur - prev))
+        out.write("\n")
+        out.write(",".join(["1"] * ord_count))
         out.flush()
         out.close()
         if not song.compiled:
@@ -319,7 +328,6 @@ def play_song(song: Song):
         mixer.music.stop()
         sleep(0.5)
         mixer.music.set_volume(song.volume)
-        mixer.music.play()
         last_correction = 0
         lag_debt = 0
         buffer = []
